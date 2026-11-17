@@ -1,0 +1,17 @@
+# Seeed XIAO ESP32-S3 -> XIAO Expansion Board pin map
+substitutions:
+  pin_d0: GPIO1    # Grove A0/D0 (ADC1_CH0)
+  pin_d1: GPIO2    # On-board user button
+  pin_d3: GPIO4    # On-board passive buzzer (A3)
+  pin_sda: GPIO5   # D4
+  pin_scl: GPIO6   # D5
+  pin_tx: GPIO43   # D6
+  pin_rx: GPIO44   # D7
+
+esp32:
+  board: seeed_xiao_esp32s3
+  framework:
+    type: esp-idf
+
+logger:
+  hardware_uart: USB_SERIAL_JTAG
