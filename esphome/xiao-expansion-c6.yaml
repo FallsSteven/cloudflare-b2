@@ -1,0 +1,21 @@
+# ESPHome config for the Seeed Studio Expansion Board Base for XIAO
+#
+# Uses:
+#   - On-board 0.96" SSD1306 128x64 OLED (I2C 0x3C)  -> status screen
+#   - On-board PCF8563 RTC (I2C 0x51)                 -> keeps time offline
+#   - On-board user button (D1)                       -> page switch / HA event
+#   - On-board passive buzzer (D3/A3)                 -> RTTTL tones
+#   - Grove I2C ports (shared bus, D4/D5)             -> plug in any I2C sensor
+#   - Grove UART port (D6 TX / D7 RX)                 -> line reader + sender
+#   - Grove A0/D0 port (D0)                           -> analog input (or digital)
+#
+# This file targets the XIAO ESP32-C6.
+
+substitutions:
+  name: xiao-expansion-c6
+  friendly_name: XIAO Expansion C6
+  uart_baud: "9600"
+
+packages:
+  board: !include boards/xiao-esp32c6.yaml
+  common: !include common/expansion-board.yaml

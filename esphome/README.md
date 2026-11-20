@@ -13,14 +13,25 @@ XIAO ESP32-C3, ESP32-S3 or ESP32-C6.
 | User button                   | D1       | short press = next OLED page, long press = beep |
 | Passive buzzer                | D3 (A3)  | `rtttl` + "Buzzer Beep" button            |
 
-GPIO numbers for each chip are in `boards/`. To change chips, edit the
-`packages: board:` line in `xiao-expansion.yaml`.
+| File                      | XIAO      |
+|---------------------------|-----------|
+| `xiao-expansion.yaml`     | ESP32-C3 (change its `board:` line to `boards/xiao-esp32s3.yaml` for an S3) |
+| `xiao-expansion-c6.yaml`  | ESP32-C6  |
+
+Both include `common/expansion-board.yaml`, which holds everything the boards share.
+The pin numbers for each chip are in `boards/`.
+
+### ESP32-C6 extras
+- The **RF switch** is turned on at boot (GPIO3 low). Without this, Wi-Fi is weak or doesn't work.
+- The **"External Antenna"** switch (GPIO14) chooses between the on-board antenna and a U.FL antenna. The default is the on-board antenna.
+- The **"XIAO LED"** light controls the yellow LED on the XIAO itself (GPIO15).
 
 ## Use
 
 ```bash
 cp secrets.yaml.example secrets.yaml   # fill in Wi-Fi + API key
-esphome run xiao-expansion.yaml
+esphome run xiao-expansion.yaml      # ESP32-C3
+esphome run xiao-expansion-c6.yaml   # ESP32-C6
 ```
 
 ## Notes

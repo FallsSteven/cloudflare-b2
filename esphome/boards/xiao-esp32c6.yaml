@@ -9,10 +9,41 @@ substitutions:
   pin_rx: GPIO17   # D7
 
 esp32:
-  board: esp32-c6-devkitc-1
+  board: seeed_xiao_esp32c6
   variant: esp32c6
   framework:
     type: esp-idf
 
 logger:
   hardware_uart: USB_SERIAL_JTAG
+
+# The XIAO ESP32-C6 routes its antenna through an RF switch.
+# GPIO3 LOW powers the switch; GPIO14 picks the antenna
+# (LOW = on-board ceramic, HIGH = external U.FL).
+switch:
+  - platform: gpio
+    id: rf_switch_power
+    pin: GPIO3
+    restore_mode: ALWAYS_OFF
+    internal: true
+  - platform: gpio
+    id: rf_antenna_external
+    name: "External Antenna"
+    icon: mdi:antenna
+    pin: GPIO14
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+# Yellow user LED on the XIAO itself (active low).
+output:
+  - platform: gpio
+    id: xiao_led_out
+    pin:
+      number: GPIO15
+      inverted: true
+      ignore_strapping_warning: true  # it's the board's own LED
+
+light:
+  - platform: binary
+    name: "XIAO LED"
+    output: xiao_led_out
